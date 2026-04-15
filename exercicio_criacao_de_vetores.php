@@ -38,7 +38,9 @@ echo "Números pares: $pares<br>";
 echo "Números impares: $impares<br>";
 
 
-
+foreach ($numeros as $indice => $valor) {
+    echo "Posição $indice tem o valor $valor<br>";
+}
 
 
 
