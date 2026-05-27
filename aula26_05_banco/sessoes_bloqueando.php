@@ -13,9 +13,9 @@
  	?>
 </head>
 <body>
-	<b>Funcionário: </b><?php echo $_SESSION['nome']; ?>,logado com sucesso.<br>
+	<b>Funcionário: </b><?php echo $_SESSION['nome']; ?>,Logado com sucesso.<br>
 	<b>Data da conexão: </b><?php date("d/m/y"); ?><br>
-	<b>Hora da conexão :</b><?php date("H:m:s"); ?><br>
+	<b>Hora da conexão :</b><?php date("H:i:s"); ?><br>
 
 	<a href="sessoes_verifica_sessao.php">Área de Administrador</a>
 </body>
