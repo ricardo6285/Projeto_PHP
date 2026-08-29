@@ -1,6 +1,6 @@
 <?php 
 include 'conexao.php';
-header("Contet-Type: application/json");
+header("Content-Type: application/json");
 
 $metodo = $_SERVER['REQUEST_METHOD'];
 
@@ -14,13 +14,14 @@ switch ($metodo) {
 		}else{
 			$sql = "SELECT * FROM usuarios";
 			$resultado = $conn->query($sql);
-			$usarios = [];
+			$usuarios = [];
 			while ($row = $resultado->fetch_assoc()){
 				$usuarios[] = $row;
 			}
 			echo json_encode($usuarios);
 		}
 		break;
+
 	case 'POST':
 	// CREATE (INSERIR)
 	$dados = json_decode(file_get_contents("php://input"),true);
@@ -52,18 +53,20 @@ switch ($metodo) {
 	if($id > 0 && !empty($nome) && !empty(email)){
 		$sql = "UPDATE usarios SET nome = '$nome', '$email' WHERE id = $id";
 		if($conn->query($sql) === TRUE){
-			echo json_encode(["sucesso" => true, "mensagem" => "Usuario atualizado com sucesso"])
+			echo json_encode(["sucesso" => true, "mensagem" => "Usuario atualizado com sucesso"]);
 		}else{
 			echo json_encode(["sucesso" => false, "mensagem" => "Erro ao atualizar com sucesso"]);
 		}
 	}else{
 		echo json_encode(["sucesso" => false, "mensagem" => "Dados invalidos"]);
 	}
+
+
 	break;
 
 	case 'DELETE':
 	// DELETE (Excluir)
-	parse_str(file_get_contents("php://input"),$dados);
+	parse_str(file_get_contents("php://input"), $dados);
 	$id = $_GET['id'] ?? 0;
 
 	if($id > 0){
