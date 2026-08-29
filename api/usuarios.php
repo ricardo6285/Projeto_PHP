@@ -52,14 +52,34 @@ switch ($metodo) {
 	if($id > 0 && !empty($nome) && !empty(email)){
 		$sql = "UPDATE usarios SET nome = '$nome', '$email' WHERE id = $id";
 		if($conn->query($sql) === TRUE){
-			echo json_encode(["sucesso" =>])
+			echo json_encode(["sucesso" => true, "mensagem" => "Usuario atualizado com sucesso"])
+		}else{
+			echo json_encode(["sucesso" => false, "mensagem" => "Erro ao atualizar com sucesso"]);
 		}
+	}else{
+		echo json_encode(["sucesso" => false, "mensagem" => "Dados invalidos"]);
 	}
+	break;
+
+	case 'DELETE':
+	// DELETE (Excluir)
+	parse_str(file_get_contents("php://input"),$dados);
+	$id = $_GET['id'] ?? 0;
+
+	if($id > 0){
+		$sql = "DELETE FROM usuarios WHERE id = $id";
+		if($conn->query($sql) === TRUE){
+			echo json_encode(["sucesso" => true, "mensagem" => "Usuario deletado com sucesso"]);
+		}else{
+			echo json_encode(["sucesso" => false, "mensagem" => "Erro ao deletar: " . $conn->error]);
+		}
+	}else{
+		echo json_encode(["sucesso" => false, "mensagem" => "ID invalido." ]);
+	}
+	break;
 
 
-
-
-
+$conn->close();
 
 
 
